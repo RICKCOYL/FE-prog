@@ -74,7 +74,6 @@ function IndustriesList({ industries}: { industries: Industry[] }) {
 export default function App() {
 
   const [industries, setIndustries] = useState([])
-  const [error, setError] = useState(null)
 
   useEffect(() => {
     axios.get(INDUSTRIES_JSON_URL)
@@ -90,7 +89,7 @@ export default function App() {
 
   return (
     <div className="App">
-      <IndustriesList industries={industries} error={error}/>
+      <IndustriesList industries={industries} />
     </div>
   );
 }
