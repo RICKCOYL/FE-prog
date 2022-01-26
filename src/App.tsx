@@ -61,15 +61,14 @@ const INDUSTRIES_JSON_URL =
   "https://gist.githubusercontent.com/freeatnet/6050f1eea22564d437d91a04f0efe5b9/raw/0a02e865fc92a85a20a3c63f952a6f760c669f50/industries.json";
 
 function IndustriesList({ industries}: { industries: Industry[] }) {
-  if (Industry instanceof industries) {
+  
     return (
       <ul className="list-group list-group-flush">
         {industries.map((industry) => (
-          <li key={industry.id}>{industry.name}</li>
+          <li className="list-group-item" key={industry.id}>{industry.name}</li>
         ))}
       </ul>
     )
-  }
 }
 
 export default function App() {
