@@ -48,21 +48,50 @@
  * reach out to ai@sloika.xyz.
  */
 
-import "./styles.css";
+import { useEffect, useState } from "react";
+import axios from "axios"
+
+type Industry = {
+  id: string;
+  name: string;
+  parentId: string | null;
+}
 
 const INDUSTRIES_JSON_URL =
   "https://gist.githubusercontent.com/freeatnet/6050f1eea22564d437d91a04f0efe5b9/raw/0a02e865fc92a85a20a3c63f952a6f760c669f50/industries.json";
 
-function IndustriesList({ industries }: any) {
-  return <ul>{/* TODO: Complete this */}</ul>;
+function IndustriesList({ industries}: { industries: Industry[] }) {
+  if (Industry instanceof industries) {
+    return (
+      <ul className="list-group list-group-flush">
+        {industries.map((industry) => (
+          <li key={industry.id}>{industry.name}</li>
+        ))}
+      </ul>
+    )
+  }
 }
 
 export default function App() {
-  let industries: any[] = []; // TODO: Load industries
+
+  const [industries, setIndustries] = useState([])
+  const [error, setError] = useState(null)
+
+  useEffect(() => {
+    axios.get(INDUSTRIES_JSON_URL)
+  .then((response) => {
+    setIndustries(response.data);
+  })
+  .catch((error: string) => {
+    console.log(error);
+  })
+   
+  });
+
 
   return (
     <div className="App">
-      <IndustriesList industries={industries} />
+      <IndustriesList industries={industries} error={error}/>
     </div>
   );
 }
